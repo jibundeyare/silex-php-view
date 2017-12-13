@@ -19,21 +19,22 @@ It is recommended to create a separate directory to store the views.
 In the examples, we use the following directory structure:
 
     project/
-      views/
-        hello.php
-      web/
+      public/
         index.php
+      templates/
+        hello.php
+      vendor/
 
 ## registering
 
-    // web/index.php
+    // public/index.php
     $app->register(new SilexPhpView\ViewServiceProvider(), [
-        'view.path' => __DIR__.'/../views',
+        'view.path' => __DIR__.'/../templates',
     ]);
 
 ## usage
 
-    // web/index.php
+    // public/index.php
     $app->get('/test', function() use($app) {
         $greeting = 'Hello!';
 
@@ -42,5 +43,6 @@ In the examples, we use the following directory structure:
         ]);
     });
 
-    // views/hello.php
+    // templates/hello.php
     echo $greeting;
+
