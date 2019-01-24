@@ -9,6 +9,9 @@
             "email": "daishi.kaszer@gmail.com"
         }
     ],
+    "require": {
+        "jibundeyare/raw-php-view": "~1.0"
+    },
     "require-dev": {
         "silex/silex": "~2.0"
     },
