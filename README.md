@@ -27,15 +27,44 @@ In the examples, we use the following directory structure:
 
 ## registering
 
-    // public/index.php
-    $app->register(new SilexPhpView\ViewServiceProvider(), [
+    use SilexPhpView\ViewServiceProvider;
+
+    // ...
+
+    $app->register(new ViewServiceProvider(), [
         'view.path' => __DIR__.'/../templates',
     ]);
 
 ## usage
 
+Create a PHP template file `templates/hello.php` :
+
+    <!-- templates/hello.php -->
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8" />
+            <title><?php echo $greeting; ?></title>
+        </head>
+        <body>
+            <h1><?php echo $greeting; ?></h1>
+        </body>
+    </html>
+
+Create a PHP entry file `public/index.php` :
+
+    <?php
     // public/index.php
-    $app->get('/test', function() use($app) {
+
+    use SilexPhpView\ViewServiceProvider;
+
+    // ...
+
+    $app->register(new ViewServiceProvider(), [
+        'view.path' => __DIR__.'/../templates',
+    ]);
+
+    $app->get('/hello', function() use($app) {
         $greeting = 'Hello!';
 
         return $app['view']->render('hello.php', [
@@ -43,6 +72,9 @@ In the examples, we use the following directory structure:
         ]);
     });
 
-    // templates/hello.php
-    echo $greeting;
+In your terminal, start a web server :
+
+    php -S localhost:8000 -t public
+
+And enjoy the result : [http://localhost:8000/hello](http://localhost:8000/hello).
 
